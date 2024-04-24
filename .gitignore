@@ -40,3 +40,5 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+src/assets/images/bootcampC.png
+src/assets/images/Cat03.jpg
