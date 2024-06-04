@@ -1,4 +1,4 @@
-export interface GetListBootcampResponseDto {
+export interface GetListBootcampResponse {
   id: number;
   name: string;
   instructorId: string;
@@ -7,4 +7,6 @@ export interface GetListBootcampResponseDto {
   endDate: Date;
   instructorFirstName: string;
   instructorLastName: string;
+  imagePath: string;
+  editing: boolean;
 }

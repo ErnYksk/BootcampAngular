@@ -1,0 +1,29 @@
+// Adjusting the image to fill the container
+.object-cover {
+  object-fit: cover;
+}
+
+// Ensuring rounded corners for the top of the image
+.rounded-t-lg {
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+// Card hover effect
+.card-wrapper .card {
+  transition: transform 0.3s ease;
+}
+
+.card-wrapper:hover .card {
+  transform: scale(1.05);
+}
+
+// Preventing flickering when hover from child elements
+.card-wrapper:hover > .card > * {
+  pointer-events: none;
+}
+
+// Base card style
+.card {
+  transition: transform 0.3s ease;
+}

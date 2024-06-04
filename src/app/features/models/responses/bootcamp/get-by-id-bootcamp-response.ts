@@ -7,4 +7,6 @@ export interface GetByIdBootcampResponse {
   endDate: Date;
   instructorFirstName: string;
   instructorLastName: string;
+  imagePath: string;
+  bootcampStateName: string;
 }

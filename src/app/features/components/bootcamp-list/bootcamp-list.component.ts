@@ -1,41 +1,37 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { GetListBootcampResponseDto } from '../../models/responses/bootcamp/get-list-bootcamp-response-dto';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { DataResult } from '../../models/data-result';
+import { BootcampService } from '../../services/concretes/bootcamp.service';
+import { PageRequest } from '../../../core/models/requests/page-request';
+import { BootcampListItem } from '../../models/responses/bootcamp/bootcamp-item-dto';
+import { RouterModule, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-bootcamp-list',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [RouterOutlet, RouterModule, CommonModule],
   templateUrl: './bootcamp-list.component.html',
   styleUrl: './bootcamp-list.component.scss',
 })
 export class BootcampListComponent implements OnInit {
-  bootcampList: GetListBootcampResponseDto[] = [];
-
-  constructor(private httpClient: HttpClient) {}
-
+  bootcamps: BootcampListItem = {
+    index: 0,
+    size: 0,
+    count: 0,
+    hasNext: false,
+    hasPrevious: false,
+    pages: 0,
+    items: [],
+    editing: false,
+  };
+  constructor(private bootcampService: BootcampService) {}
+  readonly PAGE_SIZE = 3;
   ngOnInit(): void {
-    this.getBootcampListModels();
+    this.getBootcamps({ page: 0, pageSize: this.PAGE_SIZE });
   }
 
-  getBootcampListModels() {
-    this.httpClient
-      .get<DataResult<GetListBootcampResponseDto[]>>(
-        'http://localhost:5278/api/Bootcamps?PageIndex=0&PageSize=10'
-      )
-      .subscribe({
-        next: (response: DataResult<GetListBootcampResponseDto[]>) => {
-          console.log('Cevap geldi :', response);
-          this.bootcampList = response.items;
-        },
-        error: (error) => {
-          console.log('cevap hatalı :', error);
-        },
-        complete: () => {
-          console.log('istek sonlandı');
-        },
-      });
+  getBootcamps(pageRequest: PageRequest) {
+    this.bootcampService.getList(pageRequest).subscribe((response) => {
+      this.bootcamps = response;
+    });
   }
 }

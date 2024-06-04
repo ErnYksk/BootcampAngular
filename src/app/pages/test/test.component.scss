@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+}
+
+.left-menu {
+  flex: 1;
+  background-color: blue;
+  color: white; /* Text color */
+  padding: 5px; /* Adjust padding as needed */
+}
+
+.right-content {
+  flex: 3;
+}
+
+#saveButton {
+  position: relative;
+  margin-left: 750px;
+  margin-top: 10px;
+}
+
+#routerButton {
+  position: relative;
+  margin-left: 850px;
+  margin-top: 10px;
+}

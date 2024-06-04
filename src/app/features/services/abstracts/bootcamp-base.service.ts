@@ -1,0 +1,27 @@
+import { Injectable } from '@angular/core';
+import { PageRequest } from '../../../core/models/requests/page-request';
+import { Observable } from 'rxjs';
+import { BootcampListItem } from '../../models/responses/bootcamp/bootcamp-item-dto';
+import { CreateBootcampRequest } from '../../models/requests/bootcamp/create-bootcamp-request';
+import { UpdateBootcampRequest } from '../../models/requests/bootcamp/update-bootcamp-request';
+import { CreateBootcampResponse } from '../../models/responses/bootcamp/create-bootcamp-response';
+import { DeleteBootcampResponse } from '../../models/responses/bootcamp/delete-bootcamp-response';
+import { UpdateBootcampesponse } from '../../models/responses/bootcamp/update-bootcamp-response';
+import { GetByIdBootcampResponse } from '../../models/responses/bootcamp/get-by-id-bootcamp-response';
+
+@Injectable({
+  providedIn: 'root',
+})
+export abstract class BootcampBaseService {
+  constructor() {}
+  abstract getList(pageRequest: PageRequest): Observable<BootcampListItem>;
+  abstract postBootcamp(
+    bootcamp: CreateBootcampRequest
+  ): Observable<CreateBootcampResponse>;
+
+  abstract deleteBootcamp(id: number): Observable<DeleteBootcampResponse>;
+  abstract updateBootcamp(
+    bootcamp: UpdateBootcampRequest
+  ): Observable<UpdateBootcampesponse>;
+  abstract getBootcamp(id: number): Observable<GetByIdBootcampResponse>;
+}
