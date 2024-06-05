@@ -52,7 +52,7 @@ export class TestComponent implements OnInit {
     private toastService: ToastrService,
     private formBuilder: FormBuilder
   ) {}
-  readonly PAGE_SIZE = 3;
+  readonly PAGE_SIZE = 10;
   ngOnInit(): void {
     this.getBootcamps({ page: 0, pageSize: this.PAGE_SIZE });
     this.updateBootcampForm = this.formBuilder.group({
@@ -74,7 +74,7 @@ export class TestComponent implements OnInit {
     item.editing = !item.editing;
   }
   cancelEdit(): void {
-    this.editingItem = false; // Set editingItem to false to close the edit form
+    this.editingItem = false;
   }
 
   getBootcamps(pageRequest: PageRequest) {
@@ -113,7 +113,7 @@ export class TestComponent implements OnInit {
       },
       error: (err) => {
         console.error('Update failed:', err);
-        console.log('Update failed - Request payload:', updatedBootcamp); // Log the payload
+        console.log('Update failed - Request payload:', updatedBootcamp);
         this.toastService.error('Update failed');
       },
     });

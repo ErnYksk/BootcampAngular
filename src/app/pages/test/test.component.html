@@ -1,16 +1,5 @@
 <div class="container">
   <!-- Left side menu -->
-  <div class="left-menu">
-    <ul>
-      <li>Bootcamps</li>
-      <li>Applicants</li>
-      <li>BootcampState</li>
-      <li>Instructors</li>
-      <li>Blacklist</li>
-      <!-- Add more menu items as needed -->
-    </ul>
-  </div>
-
   <!-- Right side content -->
   <div class="right-content">
     <table class="table-auto border-collapse w-full">
@@ -25,7 +14,7 @@
           <th class="px-4 py-2 bg-gray-200 border">Start Date</th>
           <th class="px-4 py-2 bg-gray-200 border">End Date</th>
           <th class="px-4 py-2 bg-gray-200 border">Bootcamp State ID</th>
-          <th class="px-4 py-2 bg-gray-200 border">Image Path</th>
+
           <th class="px-4 py-2 bg-gray-200 border">Edit</th>
         </tr>
       </thead>
@@ -41,10 +30,8 @@
             <td class="px-4 py-2 border">{{ item.startDate }}</td>
             <td class="px-4 py-2 border">{{ item.endDate }}</td>
             <td class="px-4 py-2 border">{{ item.bootcampStateId }}</td>
-            <td class="px-4 py-2 border">{{ item.imagePath }}</td>
             <td class="px-4 py-2 border">
-              <button (click)="toggleEdit(item)" style="color: red">X</button>
-              <button (click)="toggleEdit(item)" style="color: green">⛶</button>
+              <button (click)="toggleEdit(item)">Edit</button>
             </td>
           </tr>
           <!-- Edit row -->

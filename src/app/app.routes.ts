@@ -12,8 +12,13 @@ export const routes: Routes = [
   { path: 'homepage', component: HomepageComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'admin', component: AdminComponent },
-  { path: 'test', component: TestComponent },
+
+  {
+    path: 'admin',
+    component: AdminComponent,
+    children: [{ path: 'test', component: TestComponent }],
+  },
+
   { path: 'test2', component: Test2Component },
   { path: 'bootcamps', component: BootcampListComponent },
 ];

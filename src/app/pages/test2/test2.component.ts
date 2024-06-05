@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { BootcampService } from '../../features/services/concretes/bootcamp.service';
 import { ToastrService } from 'ngx-toastr';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -31,7 +31,8 @@ export class Test2Component implements OnInit {
   constructor(
     private bootcampService: BootcampService,
     private toastService: ToastrService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -42,6 +43,7 @@ export class Test2Component implements OnInit {
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
       imagePath: ['', Validators.required],
+      description: ['', Validators.required],
     });
   }
 
@@ -53,6 +55,7 @@ export class Test2Component implements OnInit {
     this.bootcampService.postBootcamp(createBootcamp).subscribe({
       next: (response) => {
         this.toastService.success('Created successfully');
+        this.router.navigate(['/test']);
       },
       error: (response) => {
         this.toastService.error('Creating is failed');

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BootcampBaseService } from '../abstracts/bootcamp-base.service';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import { PageRequest } from '../../../core/models/requests/page-request';
 import { BootcampListItem } from '../../models/responses/bootcamp/bootcamp-item-dto';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../../environments/environments.development';
 import { CreateBootcampRequest } from '../../models/requests/bootcamp/create-bootcamp-request';
 import { UpdateBootcampRequest } from '../../models/requests/bootcamp/update-bootcamp-request';
