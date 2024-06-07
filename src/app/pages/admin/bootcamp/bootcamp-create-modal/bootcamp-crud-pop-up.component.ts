@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CreateBootcampRequest } from '../../features/models/requests/bootcamp/create-bootcamp-request';
 import {
   FormBuilder,
   FormGroup,
@@ -7,13 +6,15 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { BootcampService } from '../../features/services/concretes/bootcamp.service';
+import { BootcampService } from '../../../../features/services/concretes/bootcamp.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { CreateBootcampRequest } from '../../../../features/models/requests/bootcamp/create-bootcamp-request';
 import { CommonModule } from '@angular/common';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-test2',
+  selector: 'app-bootcamp-crud-pop-up',
   standalone: true,
   imports: [
     RouterOutlet,
@@ -22,17 +23,18 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     ReactiveFormsModule,
   ],
-  templateUrl: './test2.component.html',
-  styleUrl: './test2.component.scss',
+  templateUrl: './bootcamp-crud-pop-up.component.html',
+  styleUrl: './bootcamp-crud-pop-up.component.scss',
 })
-export class Test2Component implements OnInit {
+export class BootcampCrudPopUpComponent implements OnInit {
   addBootcampFrom!: FormGroup;
 
   constructor(
     private bootcampService: BootcampService,
     private toastService: ToastrService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    public dialogRef: MatDialogRef<BootcampCrudPopUpComponent>
   ) {}
 
   ngOnInit() {
@@ -55,11 +57,15 @@ export class Test2Component implements OnInit {
     this.bootcampService.postBootcamp(createBootcamp).subscribe({
       next: (response) => {
         this.toastService.success('Created successfully');
-        this.router.navigate(['/test']);
+        this.dialogRef.close();
       },
       error: (response) => {
         this.toastService.error('Creating is failed');
       },
     });
+  }
+
+  closeModal() {
+    this.dialogRef.close();
   }
 }

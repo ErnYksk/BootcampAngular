@@ -3,9 +3,8 @@ import { LoginComponent } from './pages/login/login/login.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { AdminComponent } from './pages/admin/admin.component';
-import { TestComponent } from './pages/test/test.component';
 import { BootcampListComponent } from './features/components/bootcamp-list/bootcamp-list.component';
-import { Test2Component } from './pages/test2/test2.component';
+import { BootcampComponent } from './pages/admin/bootcamp/bootcamp.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'homepage', pathMatch: 'full' },
@@ -16,9 +15,8 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminComponent,
-    children: [{ path: 'test', component: TestComponent }],
+    children: [{ path: 'bootcamps', component: BootcampComponent }],
   },
 
-  { path: 'test2', component: Test2Component },
   { path: 'bootcamps', component: BootcampListComponent },
 ];

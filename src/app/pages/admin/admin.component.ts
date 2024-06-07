@@ -6,12 +6,13 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { TestComponent } from '../test/test.component';
+import { BootcampComponent } from './bootcamp/bootcamp.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, HttpClientModule],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss',
 })
@@ -22,7 +23,7 @@ export class AdminComponent {
 
   loadBootcampsComponent() {
     this.content.clear();
-    const factory = this.resolver.resolveComponentFactory(TestComponent);
+    const factory = this.resolver.resolveComponentFactory(BootcampComponent);
     const componentRef = this.content.createComponent(factory);
   }
 }

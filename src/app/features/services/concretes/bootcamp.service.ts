@@ -56,9 +56,7 @@ export class BootcampService extends BootcampBaseService {
     return this.httpClient.post<CreateBootcampResponse>(this.apiUrl, bootcamp);
   }
   override deleteBootcamp(id: number): Observable<DeleteBootcampResponse> {
-    return this.httpClient.delete<DeleteBootcampResponse>(
-      `${this.apiUrl}/+ id`
-    );
+    return this.httpClient.delete<DeleteBootcampResponse>(`${this.apiUrl}/+id`);
   }
 
   override getList(pageRequest: PageRequest): Observable<BootcampListItem> {

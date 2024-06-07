@@ -20,6 +20,7 @@ export abstract class BootcampBaseService {
   ): Observable<CreateBootcampResponse>;
 
   abstract deleteBootcamp(id: number): Observable<DeleteBootcampResponse>;
+
   abstract updateBootcamp(
     bootcamp: UpdateBootcampRequest
   ): Observable<UpdateBootcampesponse>;

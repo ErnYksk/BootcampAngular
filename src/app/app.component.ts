@@ -9,6 +9,8 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './pages/login/login/login.component';
 import { AuthService } from './features/services/concretes/auth.service';
 import { AdminComponent } from './pages/admin/admin.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +25,7 @@ import { AdminComponent } from './pages/admin/admin.component';
     CommonModule,
     LoginComponent,
     AdminComponent,
+    MatDialogModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

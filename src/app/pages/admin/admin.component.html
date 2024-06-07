@@ -1,30 +1,39 @@
-<!-- Left Menu (Sidebar) -->
-<div
-  class="bg-gray-800 text-gray-100 w-1/5 h-screen overflow-y-auto float-left"
->
-  <div class="p-4 h-full flex flex-col justify-between">
-    <div>
-      <h1 class="text-lg font-bold mb-4">Menu</h1>
-      <ul>
-        <li class="mb-2">
-          <a
-            (click)="loadBootcampsComponent()"
-            class="text-gray-300 hover:text-white cursor-pointer"
-            >Bootcamps</a
-          >
-        </li>
-      </ul>
+<div class="flex flex-col min-h-screen">
+  <!-- Main Content -->
+  <div class="flex flex-grow">
+    <!-- Left Menu (Sidebar) -->
+    <div
+      class="bg-gray-800 text-gray-100 w-1/5 overflow-y-auto flex flex-col justify-between"
+    >
+      <div class="p-4">
+        <h1 class="text-lg font-bold mb-4">Menu</h1>
+        <ul>
+          <li class="mb-2">
+            <a
+              (click)="loadBootcampsComponent()"
+              class="text-gray-300 hover:text-white cursor-pointer"
+              >Bootcamps</a
+            >
+          </li>
+          <li class="mb-2">
+            <a
+              (click)="loadBootcampsComponent()"
+              class="text-gray-300 hover:text-white cursor-pointer"
+              >Instructors</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="p-4">
+        <p class="text-gray-400 mt-4">&copy; 2024 Admin Panel</p>
+      </div>
     </div>
-    <div>
-      <p class="text-gray-400 mt-4">&copy; 2024 Admin Panel</p>
+    <!-- Right Content Area -->
+    <div class="w-4/5 p-8 flex flex-col">
+      <h2 class="text-2xl font-semibold mb-4">Dashboard</h2>
+      <div class="bg-white p-4 shadow rounded-lg flex-grow" #content>
+        Need to bring the name of the entity dynamically and center it
+      </div>
     </div>
   </div>
 </div>
-<!-- Right Content Area -->
-<div class="w-3/4 p-8 h-full float-left">
-  <!-- Content Goes Here -->
-  <h2 class="text-2xl font-semibold mb-4">Dashboard</h2>
-  <div class="bg-white p-4 shadow rounded-lg h-full" #content></div>
-</div>
-
-<div style="clear: both"></div>

@@ -1,0 +1,52 @@
+<div class="modal-overlay" (click)="closeModal()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <h2 class="modal-title">Create Bootcamp</h2>
+    <form [formGroup]="addBootcampFrom" (ngSubmit)="addBootcamp()">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" formControlName="name" />
+      </div>
+
+      <div class="form-group">
+        <label for="instructorId">Instructor ID:</label>
+        <input type="text" id="instructorId" formControlName="instructorId" />
+      </div>
+
+      <div class="form-group">
+        <label for="bootcampStateId">Bootcamp State ID:</label>
+        <input
+          type="text"
+          id="bootcampStateId"
+          formControlName="bootcampStateId"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" formControlName="startDate" />
+      </div>
+
+      <div class="form-group">
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" formControlName="endDate" />
+      </div>
+
+      <div class="form-group">
+        <label for="imagePath">Image Path:</label>
+        <input type="text" id="imagePath" formControlName="imagePath" />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <input type="text" id="description" formControlName="description" />
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" (click)="closeModal()">
+          Cancel
+        </button>
+        <button type="submit" class="btn-submit">Add</button>
+      </div>
+    </form>
+  </div>
+</div>
