@@ -10,16 +10,64 @@
         <ul>
           <li class="mb-2">
             <a
-              (click)="loadBootcampsComponent()"
+              (click)="loadBootcampsComponent(); updateTitle('Bootcamps')"
               class="text-gray-300 hover:text-white cursor-pointer"
               >Bootcamps</a
             >
           </li>
           <li class="mb-2">
             <a
-              (click)="loadBootcampsComponent()"
+              (click)="loadBootcampsComponent(); updateTitle('Instructors')"
+              class="text-gray-300 hover:text-white cursor-pointer"
+              >Bootcamp State</a
+            >
+          </li>
+
+          <li class="mb-2">
+            <a
+              (click)="loadInstructorComponent(); updateTitle('Instructors')"
               class="text-gray-300 hover:text-white cursor-pointer"
               >Instructors</a
+            >
+          </li>
+
+          <li class="mb-2">
+            <a
+              (click)="loadBootcampsComponent(); updateTitle('Instructors')"
+              class="text-gray-300 hover:text-white cursor-pointer"
+              >Applications</a
+            >
+          </li>
+
+          <li class="mb-2">
+            <a
+              (click)="loadBootcampsComponent(); updateTitle('Instructors')"
+              class="text-gray-300 hover:text-white cursor-pointer"
+              >Application State</a
+            >
+          </li>
+
+          <li class="mb-2">
+            <a
+              (click)="loadBootcampsComponent(); updateTitle('Instructors')"
+              class="text-gray-300 hover:text-white cursor-pointer"
+              >Applicants</a
+            >
+          </li>
+
+          <li class="mb-2">
+            <a
+              (click)="loadBootcampsComponent(); updateTitle('Instructors')"
+              class="text-gray-300 hover:text-white cursor-pointer"
+              >Instructors</a
+            >
+          </li>
+
+          <li class="mb-2">
+            <a
+              (click)="loadBootcampsComponent(); updateTitle('Instructors')"
+              class="text-gray-300 hover:text-white cursor-pointer"
+              >Employees</a
             >
           </li>
         </ul>
@@ -29,11 +77,11 @@
       </div>
     </div>
     <!-- Right Content Area -->
-    <div class="w-4/5 p-8 flex flex-col">
-      <h2 class="text-2xl font-semibold mb-4">Dashboard</h2>
-      <div class="bg-white p-4 shadow rounded-lg flex-grow" #content>
-        Need to bring the name of the entity dynamically and center it
-      </div>
+    <div class="w-4/5 p-8 flex flex-col items-center justify-center">
+      <h2 class="text-2xl font-semibold mb-4">{{ selectedEntity }}</h2>
+
+      <input type="search" name="" id="" />
+      <div #content></div>
     </div>
   </div>
 </div>

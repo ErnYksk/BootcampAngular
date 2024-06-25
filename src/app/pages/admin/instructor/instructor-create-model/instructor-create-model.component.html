@@ -1,0 +1,52 @@
+<div class="modal-overlay" (click)="closeModal()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <h2 class="modal-title">Create Bootcamp</h2>
+    <form [formGroup]="addInstructorFrom" (ngSubmit)="addInstructor()">
+      <div class="form-group">
+        <label for="userName">Username:</label>
+        <input type="text" id="userName" formControlName="userName" />
+      </div>
+
+      <div class="form-group">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" formControlName="firstName" />
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" formControlName="lastName" />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email: </label>
+        <input type="email" id="email" formControlName="email" />
+      </div>
+
+      <div class="form-group">
+        <label for="dateOfBirth">Date Of Birth:</label>
+        <input type="date" id="dateOfBirth" formControlName="dateOfBirth" />
+      </div>
+
+      <div class="form-group">
+        <label for="nationalIdentity">National Identity:</label>
+        <input
+          type="text"
+          id="nationalIdentity"
+          formControlName="nationalIdentity"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="companyName">Company Name:</label>
+        <input type="text" id="companyName" formControlName="companyName" />
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" (click)="closeModal()">
+          Cancel
+        </button>
+        <button type="submit" class="btn-submit">Add</button>
+      </div>
+    </form>
+  </div>
+</div>

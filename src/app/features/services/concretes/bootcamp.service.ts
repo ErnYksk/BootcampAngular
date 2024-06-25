@@ -61,7 +61,7 @@ export class BootcampService extends BootcampBaseService {
 
   override getList(pageRequest: PageRequest): Observable<BootcampListItem> {
     const newRequest: { [key: string]: string | number } = {
-      page: pageRequest.page,
+      pageIndex: pageRequest.page,
       pageSize: pageRequest.pageSize,
     };
 

@@ -29,3 +29,34 @@
   display: flex;
   justify-content: center;
 }
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 100px;
+}
+
+.arrow {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.page-numbers {
+  display: flex;
+  gap: 20px;
+}
+
+.page-number {
+  cursor: pointer;
+}
+
+.current-page {
+  font-weight: bold;
+}

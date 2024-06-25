@@ -39,14 +39,8 @@
                 </td>
               </tr>
               <tr *ngIf="item.editing">
-                <td colspan="10" class="px-4 py-2 border">
+                <td colspan="9" class="px-4 py-2 border">
                   <form [formGroup]="updateBootcampForm">
-                    <!-- <input
-                      type="text"
-                      class="w-full border rounded p-1"
-                      formControlName="id"
-                      placeholder="Id"
-                    /> -->
                     <input
                       type="text"
                       class="w-full border rounded p-1"
@@ -104,13 +98,12 @@
                       Save
                     </button>
                     <button
-                      (click)="cancelEdit()"
+                      (click)="toggleEdit(item)"
                       type="button"
                       class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                     >
                       Cancel
                     </button>
-
                     <button
                       (click)="delete(item.id)"
                       type="button"
@@ -126,17 +119,43 @@
         </table>
       </div>
     </div>
+    <div class="flex justify-center items-center py-4">
+      <button
+        (click)="previousOnClick()"
+        [disabled]="!bootcamps.hasPrevious"
+        class="text-white bg-gray-500 hover:bg-gray-600 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2"
+      >
+        Previous
+      </button>
+      <ng-container *ngFor="let page of totalPages(); let i = index">
+        <button
+          (click)="goToPage(page)"
+          [class.bg-blue-700]="currentPageNumber === page"
+          [class.bg-gray-500]="currentPageNumber !== page"
+          class="text-white hover:bg-gray-600 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2"
+        >
+          {{ page }}
+        </button>
+      </ng-container>
+      <button
+        (click)="nextOnClick()"
+        [disabled]="!bootcamps.hasNext"
+        class="text-white bg-gray-500 hover:bg-gray-600 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2"
+      >
+        Next
+      </button>
+    </div>
+    <div class="flex justify-center items-center py-4">
+      <button
+        id="addBootcamp"
+        (click)="openAddBootcampModal()"
+        type="button"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      >
+        Add Bootcamp
+      </button>
+    </div>
   </div>
 
   <!-- Footer and centered button -->
-  <div class="flex justify-center items-center py-4">
-    <button
-      id="addBootcamp"
-      (click)="openAddBootcampModal()"
-      type="button"
-      class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-    >
-      Add Bootcamp
-    </button>
-  </div>
 </div>

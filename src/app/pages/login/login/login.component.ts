@@ -7,14 +7,23 @@ import {
   FormBuilder,
 } from '@angular/forms';
 import { AuthService } from '../../../features/services/concretes/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserLoginRequest } from '../../../features/models/requests/auth/user-login-request';
+import { RegisterComponent } from '../../register/register.component';
+import { CommonModule } from '@angular/common';
+import { HomepageComponent } from '../../homepage/homepage.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [
+    ReactiveFormsModule,
+    RegisterComponent,
+    CommonModule,
+    RouterModule,
+    HomepageComponent,
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })

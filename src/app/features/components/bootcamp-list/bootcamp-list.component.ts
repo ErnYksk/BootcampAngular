@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { BootcampService } from '../../services/concretes/bootcamp.service';
 import { PageRequest } from '../../../core/models/requests/page-request';
 import { BootcampListItem } from '../../models/responses/bootcamp/bootcamp-item-dto';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { PaginationService } from '../../services/concretes/pagination.service';
 
 @Component({
   selector: 'app-bootcamp-list',
@@ -23,15 +24,74 @@ export class BootcampListComponent implements OnInit {
     items: [],
     editing: false,
   };
-  constructor(private bootcampService: BootcampService) {}
-  readonly PAGE_SIZE = 3;
+  constructor(
+    private bootcampService: BootcampService,
+    private paginationService: PaginationService,
+    private router: Router
+  ) {}
+
+  currentPageNumber: number = 1;
+
   ngOnInit(): void {
-    this.getBootcamps({ page: 0, pageSize: this.PAGE_SIZE });
+    this.getBootcamps({ page: 0, pageSize: this.paginationService.PAGE_SIZE });
   }
 
-  getBootcamps(pageRequest: PageRequest) {
-    this.bootcampService.getList(pageRequest).subscribe((response) => {
-      this.bootcamps = response;
-    });
+  viewDetails(bootcampId: number): void {
+    this.router.navigate(['/bootcamp-detail', bootcampId]);
+  }
+
+  getBootcamps(pageRequest: PageRequest): void {
+    this.paginationService.paginate(
+      (request) => this.bootcampService.getList(request),
+      pageRequest,
+      (response) => (this.bootcamps = response),
+      (error) => console.error('Bootcamps yuklenemedi: ', error)
+    );
+  }
+
+  nextOnClick(): void {
+    this.paginationService.next(
+      (request) => this.bootcampService.getList(request),
+      this.bootcamps.index,
+      this.bootcamps.hasNext,
+      (response) => {
+        this.bootcamps = response;
+        this.updateCurrentPageNumber();
+      },
+      (error) => console.error('Failed to fetch bootcamps:', error)
+    );
+  }
+
+  previousOnClick(): void {
+    this.paginationService.previous(
+      (request) => this.bootcampService.getList(request),
+      this.bootcamps.index,
+      this.bootcamps.hasPrevious,
+      (response) => {
+        this.bootcamps = response;
+        this.updateCurrentPageNumber();
+      },
+      (error) => console.error('Failed to fetch bootcamps:', error)
+    );
+  }
+
+  goToPage(page: number): void {
+    this.paginationService.goToPage(
+      (request) => this.bootcampService.getList(request),
+      page,
+      (response) => {
+        this.bootcamps = response;
+        this.updateCurrentPageNumber();
+      },
+      (error) => console.error('Failed to fetch bootcamps:', error)
+    );
+  }
+
+  totalPages(): number[] {
+    return this.paginationService.totalPages(this.bootcamps.count);
+  }
+
+  updateCurrentPageNumber(): void {
+    this.currentPageNumber = this.bootcamps.index + 1;
   }
 }

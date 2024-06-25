@@ -1,1 +1,61 @@
-<p>instructor works!</p>
+<div class="cards-container">
+  <ng-container *ngFor="let item of instructorList.items">
+    <div class="card">
+      <a
+        (click)="viewDetails(item.id)"
+        class="block rounded-t-lg overflow-hidden"
+      >
+        <img class="object-cover w-full h-56" [src]="" alt="test" />
+      </a>
+      <div class="p-5">
+        <a (click)="viewDetails(item.id)">
+          <h5
+            class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+          >
+            {{ item }}
+          </h5>
+        </a>
+        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+          Some information about bootcamp, we can enter manually
+        </p>
+        <div class="flex items-center">
+          <button
+            type="button"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            (click)="viewDetails(item.id)"
+          >
+            Detay
+          </button>
+          <span class="ml-12"> </span>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<div class="flex justify-center items-center py-4">
+  <button
+    (click)="previousOnClick()"
+    [disabled]="!instructorList.hasPrevious"
+    class="text-white bg-gray-500 hover:bg-gray-600 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2"
+  >
+    Previous
+  </button>
+  <ng-container *ngFor="let page of totalPages(); let i = index">
+    <button
+      (click)="goToPage(page)"
+      [class.bg-blue-700]="currentPageNumber === page"
+      [class.bg-gray-500]="currentPageNumber !== page"
+      class="text-white hover:bg-gray-600 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2"
+    >
+      {{ page }}
+    </button>
+  </ng-container>
+  <button
+    (click)="nextOnClick()"
+    [disabled]="!instructorList.hasNext"
+    class="text-white bg-gray-500 hover:bg-gray-600 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2"
+  >
+    Next
+  </button>
+</div>

@@ -1,0 +1,68 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  width: 70%; /* Adjust the width as needed */
+  max-width: 800px; /* Set a maximum width if desired */
+}
+
+.modal-title {
+  font-size: 1.8rem; /* Increase the font size */
+  margin-bottom: 20px; /* Increase the margin bottom */
+}
+
+.form-group {
+  margin-bottom: 25px; /* Increase the margin bottom */
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px; /* Increase the margin bottom */
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1.1rem; /* Increase the font size */
+}
+
+.modal-actions {
+  margin-top: 30px; /* Increase the margin top */
+  text-align: right;
+}
+
+.btn-cancel,
+.btn-submit {
+  padding: 12px 20px; /* Increase the padding */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1rem; /* Increase the font size */
+}
+
+.btn-cancel {
+  background-color: red;
+  color: #333;
+  margin-right: 15px; /* Increase the margin right */
+}
+
+.btn-submit {
+  background-color: #007bff;
+  color: #fff;
+}

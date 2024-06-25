@@ -16,6 +16,7 @@ import { CreateBootcampRequest } from '../../../features/models/requests/bootcam
 import { MatDialog } from '@angular/material/dialog';
 import { BootcampCrudPopUpComponent } from './bootcamp-create-modal/bootcamp-crud-pop-up.component';
 import { CustomDatePipe } from '../../../core/helpers/custom-date/customDatePipe';
+import { PaginationService } from '../../../features/services/concretes/pagination.service';
 
 @Component({
   selector: 'app-bootcamp',
@@ -29,7 +30,7 @@ import { CustomDatePipe } from '../../../core/helpers/custom-date/customDatePipe
     CustomDatePipe,
   ],
   templateUrl: './bootcamp.component.html',
-  styleUrl: './bootcamp.component.scss',
+  styleUrls: ['./bootcamp.component.scss'],
 })
 export class BootcampComponent implements OnInit {
   bootcamps: BootcampListItem = {
@@ -47,16 +48,19 @@ export class BootcampComponent implements OnInit {
   addBootcampFrom!: FormGroup;
   item!: GetListBootcampResponse;
   router: any;
+  currentPageNumber: number = 1;
 
   constructor(
     private bootcampService: BootcampService,
     private toastService: ToastrService,
     private formBuilder: FormBuilder,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private paginationService: PaginationService
   ) {}
-  readonly PAGE_SIZE = 10;
+
   ngOnInit(): void {
-    this.getBootcamps({ page: 0, pageSize: this.PAGE_SIZE });
+    this.getBootcamps({ page: 0, pageSize: this.paginationService.PAGE_SIZE });
+
     this.updateBootcampForm = this.formBuilder.group({
       id: { disabled: true },
       name: [''],
@@ -69,8 +73,6 @@ export class BootcampComponent implements OnInit {
       imagePath: [''],
     });
   }
-
-  editingItem: boolean = false;
 
   toggleEdit(item: GetListBootcampResponse): void {
     item.editing = !item.editing;
@@ -88,14 +90,17 @@ export class BootcampComponent implements OnInit {
       });
     }
   }
-  cancelEdit(): void {
-    this.editingItem = false;
-  }
 
-  getBootcamps(pageRequest: PageRequest) {
-    this.bootcampService.getList(pageRequest).subscribe((response) => {
-      this.bootcamps = response;
-    });
+  getBootcamps(pageRequest: PageRequest): void {
+    this.paginationService.paginate(
+      (request) => this.bootcampService.getList(request),
+      pageRequest,
+      (response) => {
+        console.log('Bootcamps loaded:', response);
+        this.bootcamps = response; // Ensure this is updated correctly
+      },
+      (error) => console.error('Bootcamps failed to load: ', error)
+    );
   }
 
   updateBootcamp(item: GetListBootcampResponse): void {
@@ -105,9 +110,7 @@ export class BootcampComponent implements OnInit {
       next: (response) => {
         console.log('Update successful:', response);
         this.toastService.success('Update successful');
-        // Find the index of the updated item
         const index = this.bootcamps.items.findIndex((x) => x.id === item.id);
-        // Replace
         if (index !== -1) {
           this.bootcamps.items[index] = updatedBootcamp;
         }
@@ -118,21 +121,6 @@ export class BootcampComponent implements OnInit {
         console.error('Update failed:', err);
         console.log('Update failed - Request payload:', updatedBootcamp);
         this.toastService.error('Update failed');
-      },
-    });
-  }
-
-  addBootcamp() {
-    let createBootcamp: CreateBootcampRequest = Object.assign(
-      {},
-      this.addBootcampFrom.value
-    );
-    this.bootcampService.postBootcamp(createBootcamp).subscribe({
-      next: (response) => {
-        this.toastService.success('Created successfully');
-      },
-      error: (response) => {
-        this.toastService.error('Creating is failed');
       },
     });
   }
@@ -153,7 +141,10 @@ export class BootcampComponent implements OnInit {
         next: (response) => {
           this.toastService.success('Bootcamp deleted successfully');
           // Refresh bootcamps after deletion
-          this.getBootcamps({ page: 0, pageSize: this.PAGE_SIZE });
+          this.getBootcamps({
+            page: 0,
+            pageSize: this.paginationService.PAGE_SIZE,
+          });
         },
         error: (err) => {
           console.error('Deletion failed:', err);
@@ -163,18 +154,49 @@ export class BootcampComponent implements OnInit {
     }
   }
 
-  formatDate(date: Date): string {
-    if (!date) return ''; // Return empty string if date is null or undefined
-
-    // Format the date as desired (e.g., 'YYYY-MM-DD')
-    return date.toISOString().substring(0, 10); // Returns 'YYYY-MM-DD'
+  nextOnClick(): void {
+    this.paginationService.next(
+      (request) => this.bootcampService.getList(request),
+      this.bootcamps.index,
+      this.bootcamps.hasNext,
+      (response) => {
+        this.bootcamps = response;
+        this.updateCurrentPageNumber();
+      },
+      (error) => console.error('Failed to fetch bootcamps:', error)
+    );
   }
 
-  updateStartDate(value: string): void {
-    this.item.startDate = new Date(value); // Update startDate property with new Date object
+  previousOnClick(): void {
+    this.paginationService.previous(
+      (request) => this.bootcampService.getList(request),
+      this.bootcamps.index,
+      this.bootcamps.hasPrevious,
+      (response) => {
+        this.bootcamps = response;
+        this.updateCurrentPageNumber();
+      },
+      (error) => console.error('Failed to fetch bootcamps:', error)
+    );
   }
 
-  updateEndDate(value: string): void {
-    this.item.endDate = new Date(value); // Update endDate property with new Date object
+  goToPage(page: number): void {
+    this.paginationService.goToPage(
+      (request) => this.bootcampService.getList(request),
+      page,
+      (response) => {
+        this.bootcamps = response;
+        this.updateCurrentPageNumber();
+      },
+      (error) => console.error('Failed to fetch bootcamps:', error)
+    );
+  }
+
+  totalPages(): number[] {
+    return this.paginationService.totalPages(this.bootcamps.count);
+  }
+
+  updateCurrentPageNumber(): void {
+    this.currentPageNumber = this.bootcamps.index + 1;
   }
 }
