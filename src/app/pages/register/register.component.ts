@@ -6,13 +6,14 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../../features/services/concretes/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { LoginComponent } from '../login/login/login.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })

@@ -70,64 +70,68 @@ export class AuthService extends AuthBaseService {
     });
   }
 
-  override registerApplicant(
-    userforRegisterRequest: ApplicantRegisterRequest
+  registerApplicant(
+    applicantforRegisterRequest: ApplicantRegisterRequest,
+    headers?: HttpHeaders
   ): Observable<TokenModel> {
-    userforRegisterRequest.firstName = userforRegisterRequest.firstName || '';
-    userforRegisterRequest.lastName = userforRegisterRequest.lastName || '';
-    userforRegisterRequest.userName = userforRegisterRequest.userName || '';
-    userforRegisterRequest.about = userforRegisterRequest.about || '';
-    userforRegisterRequest.nationalIdentity =
-      userforRegisterRequest.nationalIdentity || '';
-    userforRegisterRequest.dateOfBirth =
-      userforRegisterRequest.dateOfBirth || new Date();
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    if (headers) {
+      headers.keys().forEach((key) => {
+        httpHeaders = httpHeaders.append(key, headers.get(key)!);
+      });
+    }
 
     return this.httpClient.post<TokenModel>(
       `${this.apiUrl}/RegisterApplicant`,
-      userforRegisterRequest
+      applicantforRegisterRequest,
+      { headers: httpHeaders }
     );
-    // .pipe(
-    //   switchMap((response: TokenModel) => {
-    //     this.storageService.setToken(response.token);
-
-    //     return this.sendVerifyEmail().pipe(
-    //       tap(() => {
-    //         this.toastrService.success('Doğrulama maili gönderildi');
-    //         localStorage.removeItem('token');
-    //       }),
-    //       catchError((error) => {
-    //         this.toastrService.error(
-    //           'Mail gönderilemedi. Lütfen tekrar deneyin.'
-    //         );
-    //         return throwError(error);
-    //       })
-    //     );
-    //   })
-    // );
   }
+
+  // .pipe(
+  //   switchMap((response: TokenModel) => {
+  //     this.storageService.setToken(response.token);
+
+  //     return this.sendVerifyEmail().pipe(
+  //       tap(() => {
+  //         this.toastrService.success('Doğrulama maili gönderildi');
+  //         localStorage.removeItem('token');
+  //       }),
+  //       catchError((error) => {
+  //         this.toastrService.error(
+  //           'Mail gönderilemedi. Lütfen tekrar deneyin.'
+  //         );
+  //         return throwError(error);
+  //       })
+  //     );
+  //   })
+  // );
 
   login(
     userLoginRequest: UserLoginRequest
   ): Observable<AccessTokenModel<TokenModel>> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
     return this.httpClient
       .post<AccessTokenModel<TokenModel>>(
-        `${this.apiUrl}/login`,
-        userLoginRequest
+        `${this.apiUrl}/Login`,
+        userLoginRequest,
+        { headers }
       )
       .pipe(
         map((response) => {
           this.storageService.setToken(response.accessToken.token);
-          // this.toastrService.success('başarılı');
-          //alert("Giriş yapıldı");
-          // setTimeout(()=>{
-          //   window.location.reload()
-          // },1000)
-
+          this.toastrService.success('Login successful');
           return response;
         }),
-        catchError((responseError) => {
-          //alert(responseError.error)
-          throw responseError;
+        catchError((error) => {
+          this.toastrService.error('Login failed');
+          throw error; // Propagate the error further
         })
       );
   }

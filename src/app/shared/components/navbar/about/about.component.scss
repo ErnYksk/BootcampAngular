@@ -1,0 +1,59 @@
+.about-us {
+  font-family: "Arial", sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.about-us h1 {
+  text-align: center;
+  font-size: 2.5em;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.about-us h2 {
+  font-size: 1.8em;
+  color: #3498db;
+  margin-top: 30px;
+}
+
+.about-us p {
+  font-size: 1.1em;
+  margin-bottom: 20px;
+}
+
+.about-us ul {
+  list-style-type: disc;
+  margin: 20px 0;
+  padding-left: 40px;
+}
+
+.about-us ul li {
+  margin-bottom: 10px;
+}
+
+.about-us .image {
+  width: 100%;
+  height: auto;
+  margin: 20px 0;
+  border-radius: 8px;
+}
+
+.about-us .image[alt="Our Mission"] {
+  background-image: url("/src/assets/Orange-colored-cat-yawns-displaying-teeth.webp");
+}
+
+.about-us .image[alt="What We Offer"] {
+  background-image: url("/src/assets/Orange-colored-cat-yawns-displaying-teeth.webp");
+}
+
+.about-us .image[alt="Our Values"] {
+  background-image: url("/src/assets/Orange-colored-cat-yawns-displaying-teeth.webp");
+}
+
+.about-us .image[alt="Join Us"] {
+  background-image: url("/src/assets/Orange-colored-cat-yawns-displaying-teeth.webp");
+}
